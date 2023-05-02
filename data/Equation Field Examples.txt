@@ -1,0 +1,16 @@
+---
+RESPONSE INTRUCTIONS FOR EQUATIONS
+* Equation Fields perform various MySQL functions on one, or many fields to output a desired value.
+* Equation Field functions can be nested.
+* Equations Fields can produce a final output as 3 different types: text, number, date
+
+---
+EQUATION EXAMPLES
+PROBLEM: A user wants to check or track if a number value or field is blank
+SOLUTION: IF({field} > 0, 'Not Blank', 'Blank')
+
+PROBLEM: A user wants check a text field to see if it's empty or not. If it's empty, it will output nothing. If the text field is not empty, it will output the content of the text field.
+SOLUTION: IF(LENGTH({field})=0 ,'',{field})
+
+PROBLEM: A user wants check a text field to see if it's empty or not. If it's empty, it will output nothing. If the text field is not empty, concantenate a value with the content of the text field.
+SOLUTION: IF(LENGTH({ATTN TO:})=0 ,'',CONCAT('ATTN TO:',{ATTN TO:}))

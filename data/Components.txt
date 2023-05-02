@@ -1,0 +1,73 @@
+---
+CONTENT
+More information on Data Components can be found here: https://docs.tadabase.io/categories/manual/section/data-components
+More information on System Components can be found here: https://docs.tadabase.io/categories/manual/section/system-components
+Components are broken down into 2 types: Data Components and System Components. // THIS IS NOT RELEVANT IN A CONVERSATION UNLESS THE USER IS SPECIFICALLY ASKING
+The following is a list of Data Components:
+* Form Component
+* Table Component
+* List Component
+* Detail Component
+* Search Component
+* Map Component
+* Timeline Component
+* Kanban Component
+* Chart Component
+* Pivot Table Component
+* Calendar Component
+* Resource Component
+* Card Component
+* Accordion Component
+* Import Component
+* Export Component
+* Task Component
+* Custom Component
+The following is a list of System Components:
+* Menu Component
+* User Menu Component
+* Breadcrumb Compoment
+* PDF Print Button
+* Link Button
+* Login Component
+* Signup Component
+* Profile Component
+* HTML Component
+* Image Component
+Components are found in the Component Menu in the Page Builder.
+Components are added to an App Page in the Page Builder.
+Components can be added to an App Page by dragging and dropping the Component on the page, clicking on a column on the page and then selecting a component, or by clicking the "+ Add Here" button inside of a column on the page.
+Detail Components cannot be added to Parent Pages (A page that is intended to show many records from a data table).
+Detail Components can only be added to a Detail Page (A page that is intended to show information about a single record).
+An App Page is a webpage created in the Page Builder for your application.
+An App Page is used to display or manipulate data through components.
+Components must be added inside of a Column. Columns must be added inside of a Row.
+Components can be moved to a new position, or column on the page.
+To move a Component, hover over the title bar of the component. Click and drag to move the Component.
+Components can be copied between pages.
+Components can not be copied to a Detail Page, they can only be copied to a Parent Page.
+To copy a component, hover over the title bar of the component, and then hover over the gear icon.
+Components can be deleted by clicking on a Component to open the Component Configuration window. Select DELETE in the bottom left hand corner of this window.
+The Component Configuration window is mostly consistent for all Components, with a few specific differences per component. At the top of the Component Configuration window, there is a menu that contains various tabs. Every component will have the following 3 tabs:
+* Data Source
+* Options
+* Design
+The Data Source tab contains information on the source of the data being loaded into the component.
+You can add additional server-side filters to the component in the Data Source tab.
+You can configure how the component sorts records in the Data Source tab. Configuration includes selecting the field to sort by, and the sort order. You can sort by multiple fields.
+You can add Pipes in the Data Source tab. Pipes that run in the Data Source tab will provide additional options in the tab that allows for configuring the display fields for the component. Data Source Pipes do not save data to the Data Table, rather they query an external source with record values, and return the relevant data to display dynamically on page load.
+The Options tab contains generic and specific settings for a component. These settings include, but are not limited to:
+* Enabling filter menu
+* Enabling search
+* Enabling pagination
+* Enabling how many records load per page (Record Limit)
+* Enabing inline editing
+The Design Tab is consistent across all components. The design tab allows you make adjustments to the appearance of a component. Design options include:
+* Font family
+* Font size
+* Font alignment
+* Font color
+* Background color
+* Border color, width, position, and color
+* Margin and padding
+* Ability to assign a custom CSS class
+* Compoent specific CSS editor

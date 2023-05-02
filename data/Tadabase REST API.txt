@@ -1,0 +1,525 @@
+Tadabase API
+With the Tadabase REST API you can now easily view your tables, fields and manipulate records using industry standard REST API.
+
+Getting Started
+To get started you must first generate a new API Token for your app by going to your app settings and selecting API Keys.
+
+
+
+With each request you must send the following 3 headers found in the API Keys settings page.
+
+Key	Value	Notes
+X-Tadabase-App-id	App ID	ID of the app. Can be found in the URL or in the API Keys page
+X-Tadabase-App-Key	App Key	Key Generated automatically from the API Keys Page
+X-Tadabase-App-Secret	App Secret	Secret key generated automatically from the API Keys Page
+API Limits
+Each plan has specific limitations as to how many API requests can be sent. There are 2 limits:
+
+Per minute limit.
+Per day limit.
+With each API request, the server will respond with the current limit status of your API within the headers.
+
+The response headers will look like this:
+
+Minute Limits
+X-RateLimit-Limit - The total allowed API requests per minute.
+X-RateLimit-Remaining - Total remaining API requests for this minute
+X-Retry-After - How many seconds left for this minute.
+X-RateLimit-Reset - The UNIX timestamp of when this minute is up.
+Daily Limits
+X-RateLimit-Daily-Limit - Total API requests allowed per day.
+X-RateLimit-Daily-Remaining - Total remaining API requests for this day
+X-Daily-Retry-After - How many seconds until this day is over
+X-Daily-RateLimit-Reset - The Unix timestamp of when the day will be reset
+POST
+Saving to connection field
+https://api.tadabase.io/api/v1/data-tables/{{tableId}}/records/{{recordId}}
+Save or update to a connection field when it's one to one connection type.
+
+HEADERS
+X-Tadabase-App-id
+{{appId}}
+
+Application ID from the builder
+
+X-Tadabase-App-Key
+{{appKey}}
+
+App key from generated API key in builder
+
+X-Tadabase-App-Secret
+{{appSecret}}
+
+Secret key from generated API key in builder
+
+Content-Type
+application/x-www-form-urlencoded
+
+Body
+formdata
+field_54
+{{recordId}}
+
+Record ID from connected table
+
+POST
+Saving to connection field one to many
+https://api.tadabase.io/api/v1/data-tables/{{tableId}}/records/{{recordId}}
+Save or update to a connection field when it's one to many. You must include each value seperately with the brackets after the key.
+
+HEADERS
+X-Tadabase-App-id
+{{appId}}
+
+Application ID from the builder
+
+X-Tadabase-App-Key
+{{appKey}}
+
+App key from generated API key in builder
+
+X-Tadabase-App-Secret
+{{appSecret}}
+
+Secret key from generated API key in builder
+
+Body
+formdata
+field_53
+{{recordId}},{{recordId}}
+
+Comma seperated values of record ID's
+
+POST
+Saving time fields
+https://api.tadabase.io/api/v1/data-tables/{{tableId}}/records
+Saving to time format must be done using the following format: hh:mm:ss
+
+HEADERS
+X-Tadabase-App-id
+{{appId}}
+
+Application ID from the builder
+
+X-Tadabase-App-Key
+{{appKey}}
+
+App key from generated API key in builder
+
+X-Tadabase-App-Secret
+{{appSecret}}
+
+Secret key from generated API key in builder
+
+Body
+formdata
+field_40
+'12:25:00'
+
+Time Field
+
+POST
+Saving date and time fields
+https://api.tadabase.io/api/v1/data-tables/{{tableId}}/records
+Saving to time format must be done using the following format: YYYY-MM-DD hh:mm:ss
+
+HEADERS
+X-Tadabase-App-id
+{{appId}}
+
+Application ID from the builder
+
+X-Tadabase-App-Key
+{{appKey}}
+
+App key from generated API key in builder
+
+X-Tadabase-App-Secret
+{{appSecret}}
+
+Secret key from generated API key in builder
+
+Body
+formdata
+field_41
+2019-07-26 12:34:00
+
+Date and time field
+
+GET
+Get Only Specific Fields
+https://api.tadabase.io/api/v1/data-tables/{{tableId}}/records?fields=id,field_36
+Sending a GET request to view records of a data table
+
+HEADERS
+X-Tadabase-App-id
+{{appId}}
+
+App ID from your app
+
+X-Tadabase-App-Key
+{{appKey}}
+
+App Key generated when you created this API Token
+
+X-Tadabase-App-Secret
+{{appSecret}}
+
+App Secret generated when you created this API Token
+
+PARAMS
+fields
+id,field_36
+
+Comma seperated list of fields slugs to be returned.
+
+GET
+Get User Roles
+https://api.tadabase.io/api/v1/roles
+Sending a GET request to view User Roles in an app
+
+HEADERS
+X-Tadabase-App-id
+{{appId}}
+
+App ID from your app
+
+X-Tadabase-App-Key
+{{appKey}}
+
+App Key generated when you created this API Token
+
+X-Tadabase-App-Secret
+{{appSecret}}
+
+App Secret generated when you created this API Token
+
+POST
+Update existing record
+https://api.tadabase.io/api/v1/data-tables/{{tableId}}/records/{{recordId}}
+Update existing record based on record ID
+
+HEADERS
+X-Tadabase-App-id
+{{appId}}
+
+Application ID from the builder
+
+X-Tadabase-App-Key
+{{appKey}}
+
+App key from generated API key in builder
+
+X-Tadabase-App-Secret
+{{appSecret}}
+
+Secret key from generated API key in builder
+
+Content-Type
+application/x-www-form-urlencoded
+
+Body
+formdata
+field_31
+Jennifer
+
+Text Field
+
+Filtering Records
+GET
+Filtering by a Single Condition
+https://api.tadabase.io/api/v1/data-tables/{{tableId}}/records?filters[items][0][field_id]=field_36&filters[items][0][operator]=is&filters[items][0][val]=Test 2
+Filter records based on conditions. You can use any operator that's avaialble to you in the builder.
+
+Here are the list of operators and the fields which those operators can be used for. For date/time fields please see below.
+
+View More
+Operator	For Fields
+is	Text, Long Text, Rich Text, Name, Email, Address, Phone, Text Formula, Radio, Select, Complex Formula, Auto Increment, Link, Connection, Checkbox, Multi-Select, Number, Currency, Basic Formula, Rating, Slider
+is not	Text, Long Text, Rich Text, Name, Email, Address, Phone, Text Formula, Radio, Select, Complex Formula, Auto Increment, Link, Connection, Checkbox, Multi-Select, Number, Currency, Basic Formula, Rating, Slider
+contains	Text, Long Text, Rich Text, Name, Email, Address, Phone, Checkbox, Multi-Select
+does not contain	Text, Long Text, Rich Text, Name, Email, Address, Phone, Checkbox, Multi-Select
+starts with	Text, Long Text, Rich Text, Name, Email, Address, Phone,
+ends with	Text, Long Text, Rich Text, Name, Email, Address, Phone,
+is blank	Text, Long Text, Rich Text, Name, Email, Address, Phone, Text Formula, Radio, Select, Complex Formula, Auto Increment, Link, Connection, Checkbox, Multi-Select, Number, Currency, Basic Formula, Rating, Image, Signature, Slider
+is not blank	Text, Long Text, Rich Text, Name, Email, Address, Phone, Text Formula, Radio, Select, Complex Formula, Auto Increment, Link, Connection, Checkbox, Multi-Select, Number, Currency, Basic Formula, Rating, Image, Signature
+higher than	Number, Currency, Basic Formula, Rating, Slider
+lower than	Number, Currency, Basic Formula, Rating, Slider
+higher than or equal to	Number, Currency, Basic Formula, Rating, Slider
+lower than or equal to	Number, Currency, Basic Formula, Rating, Slider
+is unchecked	Decision Box
+is checked	Decision Box
+is not unchecked	Decision Box
+is not checked	Decision Box
+size is less than	File
+size is greater than	File
+file type is	File
+file type is not	File
+View More
+Operator	Operator Value 1
+is	
+is not	
+is during the current	week, month, quarter, year
+is during the previous	X days, weeks, months, years
+is during the next	X days, weeks, months, years
+is beofre the previous	X days, weeks, months, years
+is after the next	X days, weeks, months, years
+is before	
+is after	
+is today	
+is today or before	
+is today or after	
+is before today	
+is after today	
+is blank	
+is not blank	
+is before current time	
+is after current time	
+HEADERS
+X-Tadabase-App-id
+{{appId}}
+
+App ID from your app
+
+X-Tadabase-App-Key
+{{appKey}}
+
+App Key generated when you created this API Token
+
+X-Tadabase-App-Secret
+{{appSecret}}
+
+App Secret generated when you created this API Token
+
+PARAMS
+filters[items][0][field_id]
+field_36
+
+Change to your field ID
+
+filters[items][0][operator]
+is
+
+Choose Operator. Can be: is, is not, contains, does not contain, starts with, ends with, is blank, is not blank
+
+filters[items][0][val]
+Test 2
+
+Value to be used in filter
+
+GET
+Filtering by Multiple Conditions
+https://api.tadabase.io/api/v1/data-tables/{{tableId}}/records?filters[items][0][field_id]=field_33&filters[items][0][operator]=is&filters[items][0][val]=Yes&filters[items][1][field_id]=field_35&filters[items][1][operator]=is after&filters[items][1][val]=2019-07-24&filters[condition]=AND
+To filter with multiple conditions add a new set of values with an incremented number for each item in the request parameter.
+
+For example, with one filter the parameters are:
+
+filters[items][0][field_id]
+filters[items][0][operator]
+filters[items][0][val]
+To add a second parameter, add another set of parameters incrementing the number by 1.
+
+filters[items][1][field_id]
+filters[items][1][operator]
+filters[items][1][val]
+HEADERS
+X-Tadabase-App-id
+{{appId}}
+
+App ID from your app
+
+X-Tadabase-App-Key
+{{appKey}}
+
+App Key generated when you created this API Token
+
+X-Tadabase-App-Secret
+{{appSecret}}
+
+App Secret generated when you created this API Token
+
+PARAMS
+filters[items][0][field_id]
+field_33
+
+First field to be used in filter
+
+filters[items][0][operator]
+is
+
+Operator for first filter
+
+filters[items][0][val]
+Yes
+
+Value for fitlering in first filter
+
+filters[items][1][field_id]
+field_35
+
+Second field to be used in filter
+
+filters[items][1][operator]
+is after
+
+Operator for second field
+
+filters[items][1][val]
+2019-07-24
+
+Value for filtering in second filter
+
+filters[condition]
+AND
+
+Match OR vs. AND
+
+GET
+Filtering by Blank Values
+https://api.tadabase.io/api/v1/data-tables/{{tableId}}/records?filters[items][0][field_id]=field_36&filters[items][0][operator]=is&filters[items][0][val]=Test 2
+Filter records based on conditions. You can use any operator that's avaialble to you in the builder.
+
+Here are the list of operators and the fields which those operators can be used for. For date/time fields please see below.
+
+View More
+Operator	For Fields
+is	Text, Long Text, Rich Text, Name, Email, Address, Phone, Text Formula, Radio, Select, Complex Formula, Auto Increment, Link, Connection, Checkbox, Multi-Select, Number, Currency, Basic Formula, Rating, Slider
+is not	Text, Long Text, Rich Text, Name, Email, Address, Phone, Text Formula, Radio, Select, Complex Formula, Auto Increment, Link, Connection, Checkbox, Multi-Select, Number, Currency, Basic Formula, Rating, Slider
+contains	Text, Long Text, Rich Text, Name, Email, Address, Phone, Checkbox, Multi-Select
+does not contain	Text, Long Text, Rich Text, Name, Email, Address, Phone, Checkbox, Multi-Select
+starts with	Text, Long Text, Rich Text, Name, Email, Address, Phone,
+ends with	Text, Long Text, Rich Text, Name, Email, Address, Phone,
+is blank	Text, Long Text, Rich Text, Name, Email, Address, Phone, Text Formula, Radio, Select, Complex Formula, Auto Increment, Link, Connection, Checkbox, Multi-Select, Number, Currency, Basic Formula, Rating, Image, Signature, Slider
+is not blank	Text, Long Text, Rich Text, Name, Email, Address, Phone, Text Formula, Radio, Select, Complex Formula, Auto Increment, Link, Connection, Checkbox, Multi-Select, Number, Currency, Basic Formula, Rating, Image, Signature
+higher than	Number, Currency, Basic Formula, Rating, Slider
+lower than	Number, Currency, Basic Formula, Rating, Slider
+is unchecked	Decision Box
+is checked	Decision Box
+is not unchecked	Decision Box
+is not checked	Decision Box
+size is less than	File
+size is greater than	File
+file type is	File
+file type is not	File
+View More
+Operator	Operator Value 1
+is	
+is not	
+is during the current	week, month, quarter, year
+is during the previous	X days, weeks, months, years
+is during the next	X days, weeks, months, years
+is beofre the previous	X days, weeks, months, years
+is after the next	X days, weeks, months, years
+is before	
+is after	
+is today	
+is today or before	
+is today or after	
+is before today	
+is after today	
+is blank	
+is not blank	
+is before current time	
+is after current time	
+HEADERS
+X-Tadabase-App-id
+{{appId}}
+
+App ID from your app
+
+X-Tadabase-App-Key
+{{appKey}}
+
+App Key generated when you created this API Token
+
+X-Tadabase-App-Secret
+{{appSecret}}
+
+App Secret generated when you created this API Token
+
+PARAMS
+filters[items][0][field_id]
+field_36
+
+Change to your field ID
+
+filters[items][0][operator]
+is
+
+Choose Operator. Can be: is, is not, contains, does not contain, starts with, ends with, is blank, is not blank
+
+filters[items][0][val]
+Test 2
+
+Value to be used in filter
+
+GET
+Filtering Text Fields
+https://api.tadabase.io/api/v1/data-tables/{{tableId}}/records?filters[items][0][field_id]=field_36&filters[items][0][operator]=is&filters[items][0][val]=Test 2
+HEADERS
+X-Tadabase-App-id
+{{appId}}
+
+App ID from your app
+
+X-Tadabase-App-Key
+{{appKey}}
+
+App Key generated when you created this API Token
+
+X-Tadabase-App-Secret
+{{appSecret}}
+
+App Secret generated when you created this API Token
+
+PARAMS
+filters[items][0][field_id]
+field_36
+
+Change to your field ID
+
+filters[items][0][operator]
+is
+
+Choose Operator. Can be: is, is not, contains, does not contain, starts with, ends with, is blank, is not blank
+
+filters[items][0][val]
+Test 2
+
+Value to be used in filter
+
+GET
+Filter by a Connected ID Value
+https://api.tadabase.io/api/v1/data-tables/{{tableId}}/records?filters[items][0][field_id]=field_41&filters[items][0][operator]=is&filters[items][0][val]=K2ejlOQo9B
+HEADERS
+X-Tadabase-App-id
+{{appId}}
+
+App ID from your app
+
+X-Tadabase-App-Key
+{{appKey}}
+
+App Key generated when you created this API Token
+
+X-Tadabase-App-Secret
+{{appSecret}}
+
+App Secret generated when you created this API Token
+
+PARAMS
+filters[items][0][field_id]
+field_41
+
+Change to your field ID
+
+filters[items][0][operator]
+is
+
+is, is not, contains
+
+filters[items][0][val]
+K2ejlOQo9B
+
+ID of the connected record. If this is a one to many, you can pass a comma seperated values without any spaces. For example: "K2ejlOQo9B,5nQxJR4rxY"
+
